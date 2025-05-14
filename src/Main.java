@@ -1,19 +1,33 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import core.GameHub;
+import model.Player;
+import ui.InputHandler;
+
+/**
+ * Hlavni spousteci trida pro program
+ */
 public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.println("Initial setup!!");
-	System.out.println("Exemplarni pridani");
 
-    System.out.println("2");
-    
-
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i  = " + i);
+    static void initialize(){
+        String prompt = "Zacatek aplikace, prejete si zacit novou hru, nebo navazat na jiz existujici?";
+        String newGame = "Zacatek nove hry";
+        String loadGame = "Nacteni hry (TO-DO)";
+        String end = "Konec";
+        System.out.println("LuckersGamibit App:");
+        int choice = InputHandler.readChoices(prompt, newGame, loadGame, end);
+        if (choice == 0){
+            GameHub hub = new GameHub(Player.createPlayer());
+            hub.hubLoop();
+        } else if (choice == 1) {
+            System.out.println("Not yet implemented :(");
+            // TODO: 30.04.2025 LOAD mechinismus
+        } else {
+            System.out.println("Ukoncuji...");
         }
+    }
+
+    public static void main(String[] args) {
+        // TODO: 30.04.2025 Scanner input text -> cislo a vice versa 
+        
+        initialize();
     }
 }
