@@ -1,6 +1,7 @@
 package core;
 
 import assets.RandomGen;
+import model.GameResult;
 import ui.InputHandler;
 
 public class Roulette extends Game {
@@ -11,7 +12,7 @@ public class Roulette extends Game {
     }
     
     @Override
-    public void startGame() {
+    public GameResult startGame() {
         System.out.println("Priprava na roulette hru...");
         System.out.println("Vsazeno " + getInputBet());
         player.decreaseBalance(getInputBet());
@@ -28,11 +29,11 @@ public class Roulette extends Game {
                 choice = InputHandler.readChoices("Prezil jste. Prejete si risknout dalsi pokus?", "Ano", "Ne");
             } else {
                 System.out.println("Ruletu jste prohral");
-                winnings = 0;
-                break;
+                return new GameResult(this, 0, false);
             }
         }
         System.out.println("Vysledek hry: " + winnings);
         player.increaseBalance(winnings);
+        return new GameResult(this, winnings, true);
     }
 }

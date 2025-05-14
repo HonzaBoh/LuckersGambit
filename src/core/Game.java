@@ -1,5 +1,6 @@
 package core;
 
+import model.GameResult;
 import model.Player;
 import ui.InputHandler;
 
@@ -39,5 +40,5 @@ public abstract class Game {
         return false;
     }
 
-    public abstract void startGame();
+    public abstract GameResult startGame();
 }

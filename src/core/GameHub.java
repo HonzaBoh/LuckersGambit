@@ -5,7 +5,7 @@ import ui.InputHandler;
 
 public class GameHub {
     Player player;
-    static Game[] games = {new Roulette("Roulette", 1500)};
+    static Game[] games = {new Roulette("Roulette", 1500), new Roulette("TEST ROULETTE", 2000)};
 
 
     public Player getPlayer() {
@@ -13,10 +13,11 @@ public class GameHub {
     }
 
     private String[] getGameNames() {
-        String[] gameNames = new String[games.length + 1];//potreba pro exit
+        String[] gameNames = new String[games.length + 2];//potreba pro exit
         for (int i = 0; i < games.length; i++) {
             gameNames[i] = games[i].getGameName();
         }
+        gameNames[gameNames.length - 2] = "history";
         gameNames[gameNames.length - 1] = "exit";
         return gameNames;
     }
@@ -30,11 +31,15 @@ public class GameHub {
         System.out.println("Game hub sekce");
         while (true) {
             choice = InputHandler.readChoices("Zvol hru, kterou chces hrat", getGameNames());
-            if (choice == games.length) {
+            if (choice == games.length + 1) {
                 break;
             }
+            if (choice == games.length){
+                getPlayer().printHistory();
+                continue;
+            }
             if (games[choice].loadPlayer(player)) {
-                games[choice].startGame();
+                getPlayer().insertRecord(games[choice].startGame());
             }
         }
         System.out.println("Happy end");
