@@ -59,6 +59,7 @@ public class DiceRoll extends Game {
         else if (position <= 6) winnings *= 1.4;
         else winnings *= 2;
         System.out.println("Vyhráno: " + winnings);
+        player.increaseBalance(winnings); // chybelo, hraci se nepricitali winnings
         return new GameResult(this, winnings, getInputBet(), true);
     }
 }
