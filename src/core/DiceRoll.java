@@ -54,7 +54,7 @@ public class DiceRoll extends Game {
                 System.out.println("Skocil jste mimo pole jste prohral");
                 return new GameResult(this, 0, getInputBet(), false);
             }
-            //DEBUG - Nefunguje odecitani balance pri prohre
+            //BUG - Nefunguje odecitani balance pri prohre
         }
         if (position <= 4) winnings *= 1.1;
         else if (position <= 6) winnings *= 1.4;

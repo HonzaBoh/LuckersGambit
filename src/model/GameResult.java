@@ -37,7 +37,7 @@ public class GameResult {
         this.bet = bet;
         this.win = win;
     }
-//DEBUG - nefunguje winnings kdyz se hra ukonci jeste pred zacatkem hry
+//BUG - nefunguje winnings kdyz se hra ukonci jeste pred zacatkem hry
     @Override
     public String toString() {
         return win ? "Game: " + game.getGameName()
