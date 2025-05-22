@@ -4,14 +4,13 @@ import assets.RandomGen;
 import model.GameResult;
 import ui.InputHandler;
 
-public class DiceRoll extends Game {
-    private static final int FIELD_COUNT = 7;
-
+public class DiceRoll extends Game{
     public DiceRoll(String gameName, int minBet) {
         super(gameName, minBet);
     }
 
     public static void printTrack(int position) {
+        final int FIELD_COUNT = 7;
         StringBuilder output = new StringBuilder();
 
         if (position == 0) {
@@ -35,30 +34,38 @@ public class DiceRoll extends Game {
 
     @Override
     public GameResult startGame() {
-        System.out.println("Hazite kostkou, volte, zda chcete hodit ci ne");
-        System.out.println("Pokud vyskocite mimo hraci pole, hra konci s nulovou vyhrou");
-        int position = 0;
-        int roll;
+        System.out.println("Priprava na roulette hru...");
+        System.out.println("Vsazeno " + getInputBet());
+        player.decreaseBalance(getInputBet());
         int winnings = getInputBet();
+        int position = 0;
+        int rollNumber;
         printTrack(position);
-        int choice = InputHandler.readChoices("Prejete si hodit?", "Ano", "Ne");
+        int choice = InputHandler.readChoices("Zacatek hodu kostkou, prejete si házet?", "Ano", "Ne");
         while (choice != 1) {
-            System.out.println("jumping...");
-            roll = RandomGen.getRandomInt(1,6);
-            position += roll;
-            System.out.println("Padlo: " + roll);
+            System.out.println("DiceRoll");
+            rollNumber = RandomGen.getRandomInt(1, 6);
+            position += rollNumber;
             printTrack(position);
-            if (position <= FIELD_COUNT) {
-                choice = InputHandler.readChoices("Prejete si risknout dalsi pokus?", "Ano", "Ne");
+            if (position <= 7) {
+                choice = InputHandler.readChoices("Nepřestřelil jste, přejete si znovu házet?", "Ano", "Ne");
             } else {
-                System.out.println("Skocil jste mimo pole jste prohral");
+                System.out.println("Přestřelil jste");
                 return new GameResult(this, 0, getInputBet(), false);
             }
         }
-        if (position <= 4) winnings *= 1.1;
-        else if (position <= 6) winnings *= 1.4;
-        else winnings *= 2;
-        System.out.println("Vyhráno: " + winnings);
+        if (position >= 1 && position <= 4) {
+            winnings *= 1.1;
+        } else if (position >= 5 && position <= 6) {
+            winnings *= 1.4;
+        } else {
+            winnings *= 2;
+        }
+        player.increaseBalance(winnings);
+        System.out.println("Vyhrál jste: "+winnings);
         return new GameResult(this, winnings, getInputBet(), true);
     }
+
+
+
 }
