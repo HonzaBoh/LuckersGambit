@@ -44,7 +44,8 @@ public class GameHub {
             }
             if (choice == games.length){
                 choice = InputHandler.readChoices("Vyberte, co chcete vypsat: ", "Historie", "Statistiky her");
-                if (choice == 1){
+                //DEBUG - Cisla neodpovidaji funkcionalite (choice == 1 -> choice == 0)
+                if (choice == 0){
                     getPlayer().printHistory();
                 } else {
                     PlayerStats.printStats(getPlayer());

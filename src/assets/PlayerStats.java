@@ -1,5 +1,6 @@
 package assets;
 
+import core.Game;
 import model.GameResult;
 import model.Player;
 
@@ -17,23 +18,45 @@ public class PlayerStats {
         System.out.println("Total Games Played: " + history.size());
         System.out.println("Počet vyhraných her: " + countWins(history));
         System.out.println("Prohry: " + countLosses(history));
-        System.out.println("Zisk/ztráta" + totalWinnings(history));
-        System.out.println("Win rate" + getWinRate(history));
+        System.out.println("Zisk/ztráta: " + totalWinnings(history));
+        System.out.println("Win rate " + getWinRate(history));
     }
 
     public static long countWins(List<GameResult> history) {
+        if (history.isEmpty()){
+            return 0;
+        }
         return history.stream().filter(GameResult::isWin).count();
     }
 
     public static long countLosses(List<GameResult> history) {
-        return 0;
+        if (history.isEmpty()){
+            return 0;
+        }
+        return (history.size() - history.stream().filter(GameResult::isWin).count());
     }
 
     public static int totalWinnings(List<GameResult> history) {
-        return 0;
+        if (history.isEmpty()){
+            return 0;
+        }
+        int balance = 0;
+        for(GameResult gr:history){
+            if (gr.isWin()){
+                balance += gr.getWinnings();
+            }
+            else{
+                balance -= gr.getBet();
+            }
+        }
+        return balance;
     }
 
     public static String getWinRate(List<GameResult> history) {
-        return "X %";
+        if (history.isEmpty()){
+            return 0 + "%";
+        }
+        double winrate = (double) countWins(history) /history.size();
+        return (winrate*100) + "%";
     }
 }
