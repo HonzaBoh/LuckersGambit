@@ -5,6 +5,7 @@ import ui.InputHandler;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Player {
@@ -36,6 +37,10 @@ public class Player {
 
     public static Player createPlayer(){
         return new Player(InputHandler.readText("Zadejte uzivatelske jmeno"), Constants.DEFAULT_START_BALANCE);
+    }
+
+    public List<GameResult> getHistory() {
+        return history;
     }
 
     public String getNickName() {
