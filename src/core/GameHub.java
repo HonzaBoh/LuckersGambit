@@ -44,7 +44,8 @@ public class GameHub {
             }
             if (choice == games.length){
                 choice = InputHandler.readChoices("Vyberte, co chcete vypsat: ", "Historie", "Statistiky her");
-                if (choice == 1){
+                // Bug fix: když dává hráč možnost 1, tak choice je 0, protože InputHandler.readChoices to upravuje pro pole, které začíná 0
+                if (choice == 0){
                     getPlayer().printHistory();
                 } else {
                     PlayerStats.printStats(getPlayer());

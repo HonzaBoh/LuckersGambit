@@ -33,6 +33,7 @@ public class DiceRoll extends Game {
         System.out.println(output);
     }
 
+    // Bug fix: přidáno balance increase a decrease
     @Override
     public GameResult startGame() {
         System.out.println("Hazite kostkou, volte, zda chcete hodit ci ne");
@@ -41,6 +42,7 @@ public class DiceRoll extends Game {
         int roll;
         int winnings = getInputBet();
         printTrack(position);
+        player.decreaseBalance(getInputBet());
         int choice = InputHandler.readChoices("Prejete si hodit?", "Ano", "Ne");
         while (choice != 1) {
             System.out.println("jumping...");
@@ -59,6 +61,7 @@ public class DiceRoll extends Game {
         else if (position <= 6) winnings *= 1.4;
         else winnings *= 2;
         System.out.println("Vyhráno: " + winnings);
+        player.increaseBalance(winnings);
         return new GameResult(this, winnings, getInputBet(), true);
     }
 }
