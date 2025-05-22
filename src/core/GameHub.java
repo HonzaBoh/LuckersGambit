@@ -42,12 +42,16 @@ public class GameHub {
                 }
                 break;
             }
+            // chyba v if s choicem
             if (choice == games.length){
                 choice = InputHandler.readChoices("Vyberte, co chcete vypsat: ", "Historie", "Statistiky her");
-                if (choice == 1){
+                if (choice == 0){
                     getPlayer().printHistory();
-                } else {
+                } else if (choice == 1) {
                     PlayerStats.printStats(getPlayer());
+                }
+                {
+                    System.out.println("Zadali jste spatne cislo");
                 }
                 continue;
             }
@@ -58,4 +62,7 @@ public class GameHub {
         System.out.println("Happy end");
     }
 
+    public static void main(String[] args) {
+
+    }
 }

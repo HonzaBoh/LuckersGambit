@@ -40,5 +40,6 @@ public abstract class Game {
         return false;
     }
 
+
     public abstract GameResult startGame();
 }

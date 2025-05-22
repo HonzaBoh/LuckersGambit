@@ -22,18 +22,32 @@ public class PlayerStats {
     }
 
     public static long countWins(List<GameResult> history) {
+        if (history.isEmpty()){
+            return 0;
+        }
         return history.stream().filter(GameResult::isWin).count();
     }
 
     public static long countLosses(List<GameResult> history) {
-        return 0;
+        if (history.isEmpty()){
+            return 0;
+        }
+        return history.size() - countWins(history);
     }
 
     public static int totalWinnings(List<GameResult> history) {
-        return 0;
+        if (history.isEmpty()){
+            return 0;
+        }
+        return (Player.getBalance() - Constants.DEFAULT_START_BALANCE);
     }
 
     public static String getWinRate(List<GameResult> history) {
-        return "X %";
+        if (history.isEmpty()){
+            return "Jeste jste nehrali";
+        }
+        return + history.size() / history.stream().filter(GameResult::isWin).count() * 100 + " %";
     }
+
+
 }

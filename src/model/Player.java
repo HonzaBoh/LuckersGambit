@@ -47,7 +47,7 @@ public class Player {
         return nickName;
     }
 
-    public int getBalance() {
+    public static int getBalance() {
         return balance;
     }
 
