@@ -35,6 +35,6 @@ public class PlayerStats {
     }
 
     public static String getWinRate(List<GameResult> history) {
-        return Math.round((float) history.size() / countWins(history)) + " %";
+        return (float) countWins(history) / history.size()*100 + " %";
     }
 }
