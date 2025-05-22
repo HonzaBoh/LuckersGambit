@@ -4,14 +4,13 @@ import assets.RandomGen;
 import model.GameResult;
 import ui.InputHandler;
 
-public class DiceRoll extends Game {
-    private static final int FIELD_COUNT = 7;
-
+public class DiceRoll extends Game{
     public DiceRoll(String gameName, int minBet) {
         super(gameName, minBet);
     }
 
     public static void printTrack(int position) {
+        final int FIELD_COUNT = 7;
         StringBuilder output = new StringBuilder();
 
         if (position == 0) {
@@ -35,30 +34,37 @@ public class DiceRoll extends Game {
 
     @Override
     public GameResult startGame() {
-        System.out.println("Hazite kostkou, volte, zda chcete hodit ci ne");
-        System.out.println("Pokud vyskocite mimo hraci pole, hra konci s nulovou vyhrou");
-        int position = 0;
-        int roll;
+        System.out.println("Priprava na roulette hru...");
+        System.out.println("Vsazeno " + getInputBet());
+        player.decreaseBalance(getInputBet());
         int winnings = getInputBet();
+        int roll, position;
+        position = 0;
         printTrack(position);
-        int choice = InputHandler.readChoices("Prejete si hodit?", "Ano", "Ne");
-        while (choice != 1) {
-            System.out.println("jumping...");
-            roll = RandomGen.getRandomInt(1,6);
+        int choice = InputHandler.readChoices("Zacatek DiceRoll, prejete si hodit?", "Ano", "Ne");
+        while (choice != 1){
+            System.out.println("Hod...");
+            roll = RandomGen.getRandomInt(1, 6);
+            System.out.println("Hozeno: " + roll);
             position += roll;
-            System.out.println("Padlo: " + roll);
             printTrack(position);
-            if (position <= FIELD_COUNT) {
-                choice = InputHandler.readChoices("Prejete si risknout dalsi pokus?", "Ano", "Ne");
-            } else {
-                System.out.println("Skocil jste mimo pole jste prohral");
+            if (position > 7){
+                System.out.println("DiceRoll jste prohral");
                 return new GameResult(this, 0, getInputBet(), false);
             }
+            choice = InputHandler.readChoices("Prejete si hodit znovu?", "Ano", "Ne");
         }
-        if (position <= 4) winnings *= 1.1;
-        else if (position <= 6) winnings *= 1.4;
-        else winnings *= 2;
-        System.out.println("Vyhráno: " + winnings);
+
+        if (position < 5){
+            winnings *= 1.1;
+        }else if (position < 7 && position > 4){
+            winnings *= 1.4;
+        }else {
+            winnings *= 2;
+        }
+
+        System.out.println("Vyhral jste: " + winnings);
+        player.increaseBalance(winnings);
         return new GameResult(this, winnings, getInputBet(), true);
     }
 }

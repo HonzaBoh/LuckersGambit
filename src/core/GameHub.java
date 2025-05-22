@@ -2,12 +2,11 @@ package core;
 
 import assets.PlayerStats;
 import model.Player;
-import persistence.SaveManager;
 import ui.InputHandler;
 
 public class GameHub {
     Player player;
-    static Game[] games = {new Roulette("Roulette", 1500), new DiceRoll("Dice Roll", 2000)};
+    static Game[] games = {new Roulette("Roulette", 1500), new Roulette("TEST ROULETTE", 2000)};
 
 
     public Player getPlayer() {
@@ -34,20 +33,17 @@ public class GameHub {
         while (true) {
             choice = InputHandler.readChoices("Zvol hru, kterou chces hrat", getGameNames());
             if (choice == games.length + 1) {
-                choice = InputHandler.readChoices("Chces hru ulozit?", "Ano", "Ne");
-                if (choice == 0){
-                    if (!SaveManager.createSave(player)){
-                        System.out.println("Nepodarilo se vytvorit save, ukoncuji...");
-                    }
-                }
                 break;
             }
             if (choice == games.length){
+                //prohozeny choice historie a statistiky
                 choice = InputHandler.readChoices("Vyberte, co chcete vypsat: ", "Historie", "Statistiky her");
-                if (choice == 1){
+                if (choice == 0){
                     getPlayer().printHistory();
-                } else {
+                } else if (choice == 1 && player.getHistory().size() != 0){
                     PlayerStats.printStats(getPlayer());
+                }else {
+                    System.out.println("Ještě jste nic neodehrál");
                 }
                 continue;
             }
