@@ -4,8 +4,8 @@ import core.Game;
 
 public class GameResult {
     private Game game;
-    private int winnings;
-    private boolean status;
+    private int winnings, bet;
+    private boolean win;
 
     public Game getGame() {
         return game;
@@ -23,28 +23,29 @@ public class GameResult {
         this.winnings = winnings;
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isWin() {
+        return win;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public int getBet() {
+        return bet;
     }
 
-    public GameResult(Game game, int winnings, boolean status) {
+    public GameResult(Game game, int winnings, int bet, boolean win) {
         this.game = game;
         this.winnings = winnings;
-        this.status = status;
+        this.bet = bet;
+        this.win = win;
     }
 
     @Override
     public String toString() {
-        return status ? "Game: " + game.getGameName()
-                + "\n Vsazeno: " + game.getInputBet()
+        return win ? "Game: " + game.getGameName()
+                + "\n Vsazeno: " + getBet()
                 + "\n Vyhrana castka: " + getWinnings()
                 :
                 "Game: " + game.getGameName()
-                + "\n Vsazeno: " + game.getInputBet()
+                + "\n Vsazeno: " + getBet()
                 + "\n Prohrano";
     }
 }
