@@ -1,5 +1,6 @@
 package core;
 
+import assets.PlayerStats;
 import model.Player;
 import persistence.SaveManager;
 import ui.InputHandler;
@@ -18,7 +19,7 @@ public class GameHub {
         for (int i = 0; i < games.length; i++) {
             gameNames[i] = games[i].getGameName();
         }
-        gameNames[gameNames.length - 2] = "history";
+        gameNames[gameNames.length - 2] = "historie a statistiky";
         gameNames[gameNames.length - 1] = "exit";
         return gameNames;
     }
@@ -42,7 +43,12 @@ public class GameHub {
                 break;
             }
             if (choice == games.length){
-                getPlayer().printHistory();
+                choice = InputHandler.readChoices("Vyberte, co chcete vypsat: ", "Historie", "Statistiky her");
+                if (choice == 1){
+                    getPlayer().printHistory();
+                } else {
+                    PlayerStats.printStats(getPlayer());
+                }
                 continue;
             }
             if (games[choice].loadPlayer(player)) {
