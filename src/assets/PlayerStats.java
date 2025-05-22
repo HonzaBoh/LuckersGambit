@@ -12,14 +12,19 @@ public class PlayerStats {
     public static void printStats(Player player) {
         List<GameResult> history = player.getHistory();
 
-        System.out.println("=== Player Statistics ===");
-        System.out.println("Hráč: " + player.getNickName());
-        System.out.println("Současný stav: " + player.getBalance());
-        System.out.println("Total Games Played: " + history.size());
-        System.out.println("Počet vyhraných her: " + countWins(history));
-        System.out.println("Prohry: " + countLosses(history));
-        System.out.println("Zisk/ztráta: " + totalWinnings(history));
-        System.out.println("Win rate: " + getWinRate(history));
+
+        if(history.isEmpty()) {
+            System.out.println("Nic nebylo odehrano");
+        } else {
+            System.out.println("=== Player Statistics ===");
+            System.out.println("Hráč: " + player.getNickName());
+            System.out.println("Současný stav: " + player.getBalance());
+            System.out.println("Total Games Played: " + history.size());
+            System.out.println("Počet vyhraných her: " + countWins(history));
+            System.out.println("Prohry: " + countLosses(history));
+            System.out.println("Zisk/ztráta: " + totalWinnings(history));
+            System.out.println("Win rate: " + getWinRate(history));
+        }
     }
 
     public static long countWins(List<GameResult> history) {
