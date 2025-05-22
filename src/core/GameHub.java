@@ -6,7 +6,7 @@ import ui.InputHandler;
 
 public class GameHub {
     Player player;
-    static Game[] games = {new Roulette("Roulette", 1500), new DiceRoll("Dice Roll", 1000)};
+    static Game[] games = {new Roulette("Roulette", 1500), new DiceRoll("Dice Roll", 2000)};
 
 
     public Player getPlayer() {
