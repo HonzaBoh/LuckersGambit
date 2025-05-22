@@ -42,15 +42,21 @@ public class GameHub {
                 }
                 break;
             }
-            if (choice == games.length){
+            if (choice == games.length && !getPlayer().getHistory().isEmpty()){
                 choice = InputHandler.readChoices("Vyberte, co chcete vypsat: ", "Historie", "Statistiky her");
-                if (choice == 1){
+                if (choice == 1 && !getPlayer().getHistory().isEmpty()){
                     getPlayer().printHistory();
-                } else {
+
+                } else if (choice == 2 && !getPlayer().getHistory().isEmpty()) {
                     PlayerStats.printStats(getPlayer());
+                } else {
+                    System.out.println("Není odehraná hra!");
+                    return;
                 }
+
                 continue;
             }
+
             if (games[choice].loadPlayer(player)) {
                 getPlayer().insertRecord(games[choice].startGame());
             }
