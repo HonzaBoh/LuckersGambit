@@ -9,7 +9,7 @@ public class DiceRoll extends Game {
 
     public DiceRoll(String gameName, int minBet) {
         super(gameName, minBet);
-    }
+    }   //zmena
 
     public static void printTrack(int position) {
         StringBuilder output = new StringBuilder();
