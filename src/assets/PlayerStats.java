@@ -2,6 +2,7 @@ package assets;
 
 import model.GameResult;
 import model.Player;
+import assets.Constants;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,14 +27,14 @@ public class PlayerStats {
     }
 
     public static long countLosses(List<GameResult> history) {
-        return 0;
+        return history.size() - countWins(history);
     }
 
     public static int totalWinnings(List<GameResult> history) {
-        return 0;
+        return history.stream().mapToInt(result -> result.getBet() * (result.isWin() ? 1 : -1)).sum();
     }
 
     public static String getWinRate(List<GameResult> history) {
-        return "X %";
+        return Math.round((float) history.size() / countWins(history)) + " %";
     }
 }
