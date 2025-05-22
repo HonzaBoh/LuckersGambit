@@ -42,6 +42,11 @@ public class GameHub {
                 }
                 break;
             }
+
+            //urcite je neco spatne tady ale idk
+            //mate ale chybu u dicerollu ve ktere se nevypisuje prohra
+            // taky nehne se tam suma maximalni sazky
+            //na tom se vzdavam
             if (choice == games.length){
                 choice = InputHandler.readChoices("Vyberte, co chcete vypsat: ", "Historie", "Statistiky her");
                 if (choice == 1){
