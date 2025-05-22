@@ -1,5 +1,6 @@
 package assets;
 
+import core.Game;
 import model.GameResult;
 import model.Player;
 
@@ -17,7 +18,7 @@ public class PlayerStats {
         System.out.println("Total Games Played: " + history.size());
         System.out.println("Počet vyhraných her: " + countWins(history));
         System.out.println("Prohry: " + countLosses(history));
-        System.out.println("Zisk/ztráta" + totalWinnings(history));
+        System.out.println("Zisk/ztráta: " + totalWinnings(history));
         System.out.println("Win rate" + getWinRate(history));
     }
 
@@ -26,14 +27,23 @@ public class PlayerStats {
     }
 
     public static long countLosses(List<GameResult> history) {
-        return 0;
+        int wins = (int)history.stream().filter(GameResult::isWin).count();
+        int totalGames = history.size();
+        return totalGames - wins;
     }
 
     public static int totalWinnings(List<GameResult> history) {
-        return 0;
+        int winnings = 0;
+        for (GameResult gameResult : history){
+            winnings += gameResult.getWinnings();
+        }
+        return winnings;
     }
 
     public static String getWinRate(List<GameResult> history) {
-        return "X %";
+        double wins = history.stream().filter(GameResult::isWin).count();
+        int totalGames = history.size();
+        double winRate = (wins / totalGames) * 100;
+        return ": " + winRate + "%";
     }
 }

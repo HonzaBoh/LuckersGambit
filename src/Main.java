@@ -1,4 +1,6 @@
+import assets.PlayerStats;
 import core.GameHub;
+import model.GameResult;
 import model.Player;
 import ui.InputHandler;
 
@@ -27,7 +29,8 @@ public class Main {
 
     public static void main(String[] args) {
         // TODO: 30.04.2025 Scanner input text -> cislo a vice versa 
-        
+
         initialize();
+
     }
 }
